@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 import github from './lib/github';
 import { gists, USERNAME } from './config';
 import { random } from './config';
@@ -13,7 +14,7 @@ export async function renderGists(slicer = 0) {
           <h2>${title}</h2>
         </a>
         <small>
-            Posted by 
+            Posted by
             <img class="small" src="${userGists[0].data.owner.avatar_url}" alt="" />
             <i>${userGists[index].data.owner.login}</i>
             @ ${new Date(userGists[index].data.created_at).toLocaleDateString()}
@@ -43,8 +44,8 @@ export function renderRandom() {
 }
 
 /**
- * @param {(...args: any) => any} fn 
- * @param {HTMLElement} node 
+ * @param {(...args: any) => any} fn
+ * @param {HTMLElement} node
  */
 export async function render(fn, node) {
   const wrapper = async (...args) => fn(...args);
@@ -71,3 +72,5 @@ function main($) {
 
 const query = (selector) => document.querySelector(selector);
 main(query);
+
+// @license-end

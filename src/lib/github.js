@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 import { getJSON, withStash } from './utils';
 import { ENTRYPOINT, USERNAME } from '../config';
 
@@ -58,3 +59,4 @@ const def = {
 }
 
 export default def;
+// @license-end
