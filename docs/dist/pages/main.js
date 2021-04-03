@@ -1,53 +1,177 @@
-async function c(...t){if(fetch)return fetch(...t).then(e=>e.json());throw new Error("No polyfill for fetch")}function m(t,e,s="session"){let o=async(...a)=>t(...a),n=s==="session"?sessionStorage:localStorage;async function r(...a){let i=n.getItem(e);if(i){let{data:$}=JSON.parse(i);return $}let h=await o(...a);return n.setItem(e,JSON.stringify({data:h})),h}return r}var g={"293bf01a19c36c6e301d2fa070c76e35":{title:"Object literals",description:`This article is here to show the capabilities of object literals
-      and how with one syntax you can do many things in JS.`,filename:"oliterals.md"},"476db0500a89d5a97acf1332f4d71c44":{title:"Pizza",description:"Pizza recipe and tricks for home oven.",filename:"pizza.md",image:"images/pizza.jpg"}},p="https://api.github.com",l="shaqash",f=["This site is written with pure JS","Pizza time"];async function y(t,e){return c(`${t}/users/${e}`)}async function S(t,e){return(await c(`${t}/users/${e}/starred`)).filter(o=>o.owner.login===e)}async function b(t,e){let s=`${t}/gists/${e}`,[o,n]=await Promise.all([c(s),c(`${s}/comments`)]);return{data:o,comments:n}}async function R(t,e){return Promise.all(e.map(s=>b(t,s)))}var j={getUserData:(t=l)=>m(y,"SHAQ_USER")(p,t),getUserRepos:(t=l)=>m(S,"SHAQ_REPOS")(p,t),getGists:t=>m(R,"SHAQ_GIST")(p,t)},d=j;async function w(t=0){let e=Object.keys(g),s=await d.getGists(e);return`
-    <section>
-      ${Object.values(g).map(({description:n,title:r,image:a},i)=>`
+// docs/dist/lib/utils.js
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+async function getJSON(...args) {
+  if (fetch) {
+    return fetch(...args).then((res) => res.json());
+  }
+  throw new Error("No polyfill for fetch");
+}
+function withStash(fn, key, persistence = "session") {
+  const wrapper = async (...args) => fn(...args);
+  const storage = persistence === "session" ? sessionStorage : localStorage;
+  async function inner(...args) {
+    const stored = storage.getItem(key);
+    if (stored) {
+      const {data: data2} = JSON.parse(stored);
+      return data2;
+    }
+    const data = await wrapper(...args);
+    storage.setItem(key, JSON.stringify({data}));
+    return data;
+  }
+  return inner;
+}
+// @license-end
+
+// docs/dist/config.js
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+var gists = {
+  "293bf01a19c36c6e301d2fa070c76e35": {
+    title: "Object literals",
+    description: `This article is here to show the capabilities of object literals
+      and how with one syntax you can do many things in JS.`,
+    filename: "oliterals.md"
+  },
+  "476db0500a89d5a97acf1332f4d71c44": {
+    title: "Pizza",
+    description: `Pizza recipe and tricks for home oven.`,
+    filename: "pizza.md",
+    image: "images/pizza.jpg"
+  }
+};
+var ENTRYPOINT = "https://api.github.com";
+var USERNAME = "shaqash";
+var random = [
+  "This site is written with pure JS",
+  "Pizza time"
+];
+// @license-end
+
+// docs/dist/lib/github.js
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+async function getUserData(entrypoint, username) {
+  return getJSON(`${entrypoint}/users/${username}`);
+}
+async function getUserRepos(entrypoint, username) {
+  const repos = await getJSON(`${entrypoint}/users/${username}/starred`);
+  return repos.filter((repo) => repo.owner.login === username);
+}
+async function getGist(entrypoint, gistId) {
+  const url = `${entrypoint}/gists/${gistId}`;
+  const [data, comments] = await Promise.all([
+    getJSON(url),
+    getJSON(`${url}/comments`)
+  ]);
+  return {
+    data,
+    comments
+  };
+}
+async function getGists(entrypoint, gistIds) {
+  return Promise.all(gistIds.map((id) => getGist(entrypoint, id)));
+}
+var def = {
+  getUserData: (username = USERNAME) => withStash(getUserData, "SHAQ_USER")(ENTRYPOINT, username),
+  getUserRepos: (username = USERNAME) => withStash(getUserRepos, "SHAQ_REPOS")(ENTRYPOINT, username),
+  getGists: (gistIds) => withStash(getGists, "SHAQ_GIST")(ENTRYPOINT, gistIds)
+};
+var github_default = def;
+// @license-end
+
+// docs/dist/index.js
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+async function renderGists(slicer = 0) {
+  const keys = Object.keys(gists);
+  const userGists = await github_default.getGists(keys);
+  const posts = Object.values(gists).map(({description, title, image}, index) => `
     <div class="post">
       <div>
-        <a href="https://gist.github.com/${l}/${e[i]}">
-          <h2>${r}</h2>
+        <a href="https://gist.github.com/${USERNAME}/${keys[index]}">
+          <h2>${title}</h2>
         </a>
         <small>
             Posted by
-            <img class="small" src="${s[0].data.owner.avatar_url}" alt="" />
-            <i>${s[i].data.owner.login}</i>
-            @ ${new Date(s[i].data.created_at).toLocaleDateString()}
+            <img class="small" src="${userGists[0].data.owner.avatar_url}" alt="" />
+            <i>${userGists[index].data.owner.login}</i>
+            @ ${new Date(userGists[index].data.created_at).toLocaleDateString()}
         </small>
         <p>
-          ${n}
+          ${description}
         </p>
-        <small>${s[i].comments.length} comment/s</small>
+        <small>${userGists[index].comments.length} comment/s</small>
       </div>
       <div>
-        ${a?`<img class="medium" src="${a}" alt="" />`:""}
+        ${image ? `<img class="medium" src="${image}" alt="" />` : ""}
       </div>
     </div>
-  `).reduceRight((n,r)=>[...n,r],[]).slice(t).join("")}
-    </section>
-  `}function v(){let t=Math.floor(Math.random()*f.length);return f[t]}async function u(t,e){let s=async(...o)=>t(...o);return e.innerHTML=await s()}function N(t){let e=t("#random"),s=t(".menu");window.onscroll=()=>{window.pageYOffset>s.offsetTop?s.classList.add("sticky"):s.classList.remove("sticky")},u(v,e)}var E=t=>document.querySelector(t);N(E);async function O(){return`
+  `);
+  return `
     <section>
-      <h1>Top Repositories</h1>
-      ${(await d.getUserRepos()).map(s=>`
+      ${posts.reduceRight((acc, cur) => [...acc, cur], []).slice(slicer).join("")}
+    </section>
+  `;
+}
+function renderRandom() {
+  const index = Math.floor(Math.random() * random.length);
+  return random[index];
+}
+async function render(fn, node) {
+  const wrapper = async (...args) => fn(...args);
+  return node.innerHTML = await wrapper();
+}
+function main($) {
+  const random2 = $("#random");
+  const menu = $(".menu");
+  window.onscroll = () => {
+    if (window.pageYOffset > menu.offsetTop) {
+      menu.classList.add("sticky");
+    } else {
+      menu.classList.remove("sticky");
+    }
+  };
+  render(renderRandom, random2);
+}
+var query = (selector) => document.querySelector(selector);
+main(query);
+// @license-end
+
+// docs/dist/pages/main.js
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+async function renderRepos() {
+  const userRepos = await github_default.getUserRepos();
+  const repos = userRepos.map((repo) => `
     <div class="post">
       <div>
-        <a href="${s.html_url}" >
-          <h3>${s.name}</h3>
+        <a href="${repo.html_url}" >
+          <h3>${repo.name}</h3>
         </a>
         <small>
         Posted
-        @ ${new Date(s.created_at).toLocaleDateString()}
-        ${s.homepage?`<a href="${s.homepage}" title="Demo">🔗</a>`:""}
+        @ ${new Date(repo.created_at).toLocaleDateString()}
+        ${repo.homepage ? `<a href="${repo.homepage}" title="Demo">🔗</a>` : ""}
         </small>
         <p>
-          ${s.description}
+          ${repo.description}
         </p>
-        <span class="circle ${s.language||""}"></span>
-        <strong>${s.language||""}</strong>
+        <span class="circle ${repo.language || ""}"></span>
+        <strong>${repo.language || ""}</strong>
       </div>
     </div>
-  `).slice(0,4).join("")}
+  `);
+  return `
+    <section>
+      <h1>Top Repositories</h1>
+      ${repos.slice(0, 4).join("")}
     </section>
-  `}function x(t){let e=t("#gists"),s=t("#repos");u(w,e),u(O,s)}var z=t=>document.querySelector(t);x(z);
-// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+  `;
+}
+function main2($) {
+  const gists2 = $("#gists");
+  const repos = $("#repos");
+  render(renderGists, gists2);
+  render(renderRepos, repos);
+}
+var query2 = (selector) => document.querySelector(selector);
+main2(query2);
 // @license-end
 //# sourceMappingURL=//dist/pages//main.js.map
