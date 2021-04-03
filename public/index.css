@@ -66,10 +66,6 @@ img.medium {
   border-radius: 2px;
 }
 
-main > * {
-  margin-bottom: 60px;
-}
-
 .post {
   margin-bottom: 20px;
   display: flex;

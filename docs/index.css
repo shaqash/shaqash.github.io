@@ -55,9 +55,6 @@ img.medium {
   height: 96px;
   border-radius: 2px;
 }
-main > * {
-  margin-bottom: 60px;
-}
 .post {
   margin-bottom: 20px;
   display: flex;
