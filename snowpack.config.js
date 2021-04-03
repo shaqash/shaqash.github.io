@@ -4,7 +4,6 @@ module.exports = {
     src: '/dist',
   },
   optimize: {
-    bundle: true,
     target: 'es2018',
   },
   buildOptions: {

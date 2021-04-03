@@ -1,88 +1,10 @@
-// docs/dist/lib/utils.js
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-async function getJSON(...args) {
-  if (fetch) {
-    return fetch(...args).then((res) => res.json());
-  }
-  throw new Error("No polyfill for fetch");
-}
-function withStash(fn, key, persistence = "session") {
-  const wrapper = async (...args) => fn(...args);
-  const storage = persistence === "session" ? sessionStorage : localStorage;
-  async function inner(...args) {
-    const stored = storage.getItem(key);
-    if (stored) {
-      const {data: data2} = JSON.parse(stored);
-      return data2;
-    }
-    const data = await wrapper(...args);
-    storage.setItem(key, JSON.stringify({data}));
-    return data;
-  }
-  return inner;
-}
-// @license-end
-
-// docs/dist/config.js
-// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-var gists = {
-  "293bf01a19c36c6e301d2fa070c76e35": {
-    title: "Object literals",
-    description: `This article is here to show the capabilities of object literals
-      and how with one syntax you can do many things in JS.`,
-    filename: "oliterals.md"
-  },
-  "476db0500a89d5a97acf1332f4d71c44": {
-    title: "Pizza",
-    description: `Pizza recipe and tricks for home oven.`,
-    filename: "pizza.md",
-    image: "images/pizza.jpg"
-  }
-};
-var ENTRYPOINT = "https://api.github.com";
-var USERNAME = "shaqash";
-var random = [
-  "This site is written with pure JS",
-  "Pizza time"
-];
-// @license-end
-
-// docs/dist/lib/github.js
-// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-async function getUserData(entrypoint, username) {
-  return getJSON(`${entrypoint}/users/${username}`);
-}
-async function getUserRepos(entrypoint, username) {
-  const repos = await getJSON(`${entrypoint}/users/${username}/starred`);
-  return repos.filter((repo) => repo.owner.login === username);
-}
-async function getGist(entrypoint, gistId) {
-  const url = `${entrypoint}/gists/${gistId}`;
-  const [data, comments] = await Promise.all([
-    getJSON(url),
-    getJSON(`${url}/comments`)
-  ]);
-  return {
-    data,
-    comments
-  };
-}
-async function getGists(entrypoint, gistIds) {
-  return Promise.all(gistIds.map((id) => getGist(entrypoint, id)));
-}
-var def = {
-  getUserData: (username = USERNAME) => withStash(getUserData, "SHAQ_USER")(ENTRYPOINT, username),
-  getUserRepos: (username = USERNAME) => withStash(getUserRepos, "SHAQ_REPOS")(ENTRYPOINT, username),
-  getGists: (gistIds) => withStash(getGists, "SHAQ_GIST")(ENTRYPOINT, gistIds)
-};
-var github_default = def;
-// @license-end
-
-// docs/dist/index.js
-// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-async function renderGists(slicer = 0) {
+import github from "./lib/github.js";
+import {gists, USERNAME} from "./config.js";
+import {random} from "./config.js";
+export async function renderGists(slicer = 0) {
   const keys = Object.keys(gists);
-  const userGists = await github_default.getGists(keys);
+  const userGists = await github.getGists(keys);
   const posts = Object.values(gists).map(({description, title, image}, index) => `
     <div class="post">
       <div>
@@ -111,11 +33,11 @@ async function renderGists(slicer = 0) {
     </section>
   `;
 }
-function renderRandom() {
+export function renderRandom() {
   const index = Math.floor(Math.random() * random.length);
   return random[index];
 }
-async function render(fn, node) {
+export async function render(fn, node) {
   const wrapper = async (...args) => fn(...args);
   return node.innerHTML = await wrapper();
 }
@@ -131,12 +53,6 @@ function main($) {
   };
   render(renderRandom, random2);
 }
-var query = (selector) => document.querySelector(selector);
+const query = (selector) => document.querySelector(selector);
 main(query);
 // @license-end
-export {
-  render,
-  renderGists,
-  renderRandom
-};
-//# sourceMappingURL=//dist//index.js.map
