@@ -1,0 +1,61 @@
+.header-container {
+  background-color: var(--primary-background);
+  max-width: var(--page-width);
+  margin: 20px auto;
+  padding: 0 20px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.header-container div {
+  line-height: 1.4;
+}
+
+.header-container img {
+  width: 128px;
+  height: 128px;
+  border-radius: 2px;
+}
+
+.header-container div:nth-child(2) {
+  flex: 1;
+}
+
+.menu {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-color: var(--primary-background);
+  max-height: 40px;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 10px 0;
+  transition: 0.2s;
+  display: flex;
+}
+
+.menu .links {
+  flex: 1;
+}
+
+.menu .info {
+  margin: 0 10px;
+}
+
+.menu > .links > * {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.menu > a {
+  color: inherit;
+}
+
+.sticky {
+  border-bottom: 1px solid #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 99%;
+}
