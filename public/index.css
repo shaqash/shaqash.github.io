@@ -10,6 +10,7 @@ html {
 
 body {
   line-height: 1.6;
+  font-family: sans-serif;
   font-size: calc(18px + 0.5vmin);
   background-color: var(--primary-background);
   color: var(--primary-color);
