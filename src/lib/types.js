@@ -1,3 +1,4 @@
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 /**
  * @typedef {{
  * "login": string;
@@ -28,6 +29,9 @@
  * "created_at": Date | string;
  * "updated_at": Date | string;
  * "pushed_at": Date | string;
+ * "owner": {
+ *  login: string;
+ * };
  * "ssh_url": string;
  * "clone_url": string;
  * "homepage": null | string;
@@ -86,4 +90,5 @@
  * }} Gist
  */
 
-// export const dummy = {};
+
+// @license-end

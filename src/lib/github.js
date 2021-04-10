@@ -1,6 +1,7 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 import { getJSON, withStash } from './utils';
 import { ENTRYPOINT, USERNAME } from '../config';
+import './types';
 
 /**
  * @param {string} entrypoint
@@ -18,7 +19,7 @@ async function getUserData(entrypoint, username) {
  */
 async function getUserRepos(entrypoint, username) {
   /** @type {Repo[]} */
-  const repos = await getJSON(`${entrypoint}/users/${username}/starred`)
+  const repos = await getJSON(`${entrypoint}/users/${username}/starred`);
 
   return repos.filter((repo) => repo.owner.login === username);
 }
@@ -38,7 +39,7 @@ async function getGist(entrypoint, gistId) {
   return {
     data,
     comments,
-  }
+  };
 }
 
 /**
@@ -49,14 +50,19 @@ async function getGists(entrypoint, gistIds) {
   return Promise.all(gistIds.map((id) => getGist(entrypoint, id)));
 }
 
+/**
+ * @typedef {{
+ *  getUserData: {(username?: string): Promise<Userdata>};
+ *  getUserRepos: {(username?: string): Promise<Repo[]>};
+ *  getGists: {(gistIds: string[]): Promise<Gist[]>};
+ * }} Github
+ */
+/** @type {Github} */
 const def = {
-  /** @type {(username: string) => Promise<Userdata>} */
   getUserData: (username = USERNAME) => withStash(getUserData, 'SHAQ_USER')(ENTRYPOINT, username),
-  /** @type {(username: string) => Promise<Repo[]>} */
   getUserRepos: (username = USERNAME) => withStash(getUserRepos, 'SHAQ_REPOS')(ENTRYPOINT, username),
-  /** @type {(gistIds: string[]) => Promise<Gist[]>} */
   getGists: (gistIds) => withStash(getGists, 'SHAQ_GIST')(ENTRYPOINT, gistIds),
-}
+};
 
 export default def;
 // @license-end

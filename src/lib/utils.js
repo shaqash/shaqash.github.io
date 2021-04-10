@@ -1,7 +1,7 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 /**
  * @template T
- * @param  {...any} args
+ * @param  {[string, any?]} args
  * @returns {Promise<T>}
  */
 export async function getJSON(...args) {
@@ -13,7 +13,7 @@ export async function getJSON(...args) {
 
 /**
  * @template T
- * @param  {(...args: any) => any} fn
+ * @param  {(...args: any) => T | Promise<T>} fn
  * @param {('session' | 'local')} persistence
  * @returns {(...args: any) => Promise<T>}
  */
