@@ -23,7 +23,6 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background-color: var(--primary-background);
-  max-height: 40px;
   max-width: var(--page-width);
   margin: 0 auto;
   padding: 10px 0;
@@ -40,13 +39,11 @@
   display: inline-block;
   margin: 0 10px;
 }
-.menu > a {
-  color: inherit;
-}
 .sticky {
-  border-bottom: 1px solid #fff;
+  border-color: rgb(150, 150, 150);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   position: fixed;
   top: 0;
   width: 100%;
-  max-width: 99%;
+  max-width: 100%;
 }

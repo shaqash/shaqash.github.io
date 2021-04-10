@@ -3,15 +3,34 @@
   --primary-color: #fff;
   --page-width: 1000px;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 html {
   scroll-behavior: smooth;
 }
 body {
   line-height: 1.6;
-  font-family: sans-serif;
-  font-size: calc(18px + 0.5vmin);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Emoji";
+  font-size: calc(16px + 0.4vmin);
   background-color: var(--primary-background);
   color: var(--primary-color);
+  margin: 0;
 }
 h1,
 h2,
@@ -23,7 +42,6 @@ p,
 span,
 pre {
   margin: 0;
-  padding: 0;
 }
 pre {
   white-space: pre-wrap;
@@ -35,6 +53,7 @@ a {
 a:hover,
 a:focus {
   text-decoration-line: underline;
+  text-decoration-thickness: 2px;
 }
 main {
   margin: 20px auto;
@@ -65,12 +84,45 @@ img.medium {
 .post :nth-child(1) {
   flex: 1;
 }
+.intro,
+section {
+  margin-bottom: 2rem;
+}
+a.emoji {
+  text-decoration: none;
+  padding: 6px;
+  font-size: 1rem;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+a.emoji:hover,
+a.emoji:active {
+  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 40px;
+}
+a.emoji:after {
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  opacity: 0;
+  content: "";
+  -webkit-transition: opacity 1s ease;
+  transition: opacity 1s ease;
+}
+a.emoji:hover:after,
+a.emoji:active:after {
+  opacity: 1;
+  content: "  " attr(title) "";
+  padding-right: 6px;
+}
 .circle {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background-color: white;
   border-radius: 100%;
   display: inline-block;
+  text-align: center;
 }
 .JavaScript {
   background-color: #f1e05a;
