@@ -51,10 +51,34 @@ async function getGists(entrypoint, gistIds) {
 }
 
 /**
+ * @param {Gist} gist 
+ */
+export function extractPostData(gist) {
+  const {
+    data: {
+      owner: {
+        avatar_url,
+        login,
+      },
+      created_at,
+    },
+    comments,
+  } = gist;
+
+  return {
+    avatar_url,
+    login,
+    created_at,
+    comments,
+  };
+}
+
+/**
  * @typedef {{
  *  getUserData: {(username?: string): Promise<Userdata>};
  *  getUserRepos: {(username?: string): Promise<Repo[]>};
  *  getGists: {(gistIds: string[]): Promise<Gist[]>};
+ *  extractPostData: typeof extractPostData,
  * }} Github
  */
 /** @type {Github} */
@@ -62,6 +86,7 @@ const def = {
   getUserData: (username = USERNAME) => withStash(getUserData, 'SHAQ_USER')(ENTRYPOINT, username),
   getUserRepos: (username = USERNAME) => withStash(getUserRepos, 'SHAQ_REPOS')(ENTRYPOINT, username),
   getGists: (gistIds) => withStash(getGists, 'SHAQ_GIST')(ENTRYPOINT, gistIds),
+  extractPostData,
 };
 
 export default def;

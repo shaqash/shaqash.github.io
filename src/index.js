@@ -4,23 +4,27 @@ import { random } from './config';
 /***
  * @returns {string} Random string
  */
-export function renderRandom() {
+function renderRandom() {
   const index = Math.floor(Math.random() * random.length);
 
   return random[index];
 }
 
 /**
- * @param {(...args: any) => any} fn
- * @param {HTMLElement} node
+ * @param {() => any} fn
+ * @param {HTMLElement[]} nodes
  */
-export async function render(fn, node) {
-  const wrapper = async (...args) => fn(...args);
+export async function render(fn, ...nodes) {
+  const wrapper = async () => fn();
 
-  return node.innerHTML = await wrapper();
+  return Promise.all(nodes.map(async (n) => n.innerHTML = await wrapper()));
 }
 
-function main($) {
+/**
+ * @param {typeof query} $
+ * @param {typeof queryAll} _$;
+ */
+function main($, _$) {
   const random = $('#random');
   const menu = $('.menu');
 
@@ -42,6 +46,12 @@ function main($) {
  * @returns {HTMLElement}
  */
 export const query = (selector) => document.querySelector(selector);
-main(query);
+
+/** 
+ * @param {string} selector 
+ * @returns {NodeListOf<Element>}
+ */
+export const queryAll = (selector) => document.querySelectorAll(selector);
+main(query, queryAll);
 
 // @license-end

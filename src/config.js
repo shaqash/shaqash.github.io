@@ -18,7 +18,7 @@ export const ENTRYPOINT = 'https://api.github.com';
 export const USERNAME = 'shaqash';
 
 export const random = [
-  'This site is written with pure JS',
+  'This site uses pure JS',
   'Pizza time',
-]
+];
 // @license-end
