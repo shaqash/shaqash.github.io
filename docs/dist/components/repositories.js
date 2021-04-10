@@ -2,15 +2,16 @@
 import github from "../lib/github.js";
 export default async function renderRepos() {
   const userRepos = await github.getUserRepos();
-  const repos = userRepos.map((repo) => `
+  const repos = userRepos.map((repo) => {
+    var _a;
+    return `
     <div class="post">
       <div>
         <a href="${repo.html_url}" >
           <h3>${repo.name}</h3>
         </a>
         <small>
-        Posted
-        @ ${new Date(repo.created_at).toDateString()}
+        ${new Date(repo.created_at).toDateString()}
         ${repo.homepage ? `<a href="${repo.homepage}" class="emoji" title="Demo">🌍</a>` : ""}
         </small>
         <p>
@@ -18,10 +19,11 @@ export default async function renderRepos() {
         </p>
         <span class="circle ${repo.language}"></span>
         <small>${repo.language}</small>
-        <small>${repo.license.name}</small>
+        <small>${((_a = repo == null ? void 0 : repo.license) == null ? void 0 : _a.name) || ""}</small>
       </div>
     </div>
-  `);
+  `;
+  });
   return `
     <section>
       <h1>Top Repositories</h1>

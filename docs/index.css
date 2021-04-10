@@ -92,8 +92,8 @@ a.emoji {
   text-decoration: none;
   padding: 6px;
   font-size: 1rem;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 a.emoji:hover,
 a.emoji:active {
@@ -107,8 +107,8 @@ a.emoji:after {
   text-transform: capitalize;
   opacity: 0;
   content: "";
-  -webkit-transition: opacity 1s ease;
-  transition: opacity 1s ease;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 a.emoji:hover:after,
 a.emoji:active:after {
