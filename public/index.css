@@ -111,9 +111,9 @@ a.emoji:after,
 a.emoji.active:after {
   font-weight: 500;
   font-size: 0.9rem;
-  text-transform: capitalize;
+  padding: 0 6px;
   opacity: 0;
-  content: "";
+  content: attr(title);
   -webkit-transition: opacity 0.5s ease;
   transition: opacity 0.5s ease;
 }
@@ -123,7 +123,12 @@ a.emoji:active:after,
 a.emoji.active:after {
   opacity: 1;
   content: attr(title);
-  padding: 0 6px;
+}
+
+a.emoji.active:hover:after,
+a.emoji.active:active:after {
+  opacity: 1;
+  content: attr(title); /*attr(href);*/
 }
 
 .circle {

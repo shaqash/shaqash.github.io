@@ -12,7 +12,7 @@ export default async function renderRepos() {
         </a>
         <small>
         ${new Date(repo.created_at).toDateString()}
-        ${repo.homepage ? `<a href="${repo.homepage}" class="emoji" title="Demo">🌍</a>` : ''}
+        ${repo.homepage ? `<a href="${repo.homepage}" class="emoji active" title="Demo">🌍</a>` : ''}
         </small>
         <p>
           ${repo.description}

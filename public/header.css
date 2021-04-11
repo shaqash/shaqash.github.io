@@ -38,9 +38,18 @@
   flex: 1;
 }
 
+.menu .info {
+  margin: 0 12px;
+}
+
+header ~ .menu > .links > * {
+  display: inline-block;
+  margin: 0 12px;
+}
+
 .menu > .links > * {
   display: inline-block;
-  margin: 0 6px;
+  margin: 0 4px;
 }
 
 .sticky {

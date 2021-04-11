@@ -33,11 +33,15 @@
   flex: 1;
 }
 .menu .info {
-  margin: 0 10px;
+  margin: 0 12px;
+}
+header ~ .menu > .links > * {
+  display: inline-block;
+  margin: 0 12px;
 }
 .menu > .links > * {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 4px;
 }
 .sticky {
   border-color: rgb(150, 150, 150);

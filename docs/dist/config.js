@@ -16,7 +16,7 @@ export const gists = {
 export const ENTRYPOINT = "https://api.github.com";
 export const USERNAME = "shaqash";
 export const random = [
-  "This site uses pure JS",
+  "This site uses vanilla JS",
   "Pizza time"
 ];
 // @license-end
