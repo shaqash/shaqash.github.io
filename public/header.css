@@ -38,13 +38,9 @@
   flex: 1;
 }
 
-.menu .info {
-  margin: 0 10px;
-}
-
 .menu > .links > * {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 6px;
 }
 
 .sticky {

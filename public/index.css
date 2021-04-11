@@ -107,7 +107,8 @@ a.emoji:active {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-a.emoji:after {
+a.emoji:after,
+a.emoji.active:after {
   font-weight: 500;
   font-size: 0.9rem;
   text-transform: capitalize;
@@ -118,10 +119,11 @@ a.emoji:after {
 }
 
 a.emoji:hover:after,
-a.emoji:active:after {
+a.emoji:active:after,
+a.emoji.active:after {
   opacity: 1;
-  content: "  " attr(title) "";
-  padding-right: 6px;
+  content: attr(title);
+  padding: 0 6px;
 }
 
 .circle {
