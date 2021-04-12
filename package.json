@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "snowpack dev",
-    "build": "snowpack build",
-    "ssr": "node index.js"
+    "start": "node server",
+    "dev": "snowpack dev",
+    "build": "snowpack build"
   },
   "keywords": [],
   "author": "",
