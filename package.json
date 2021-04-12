@@ -2,16 +2,22 @@
   "name": "shaqash.github.io",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "snowpack dev",
-    "build": "snowpack build"
+    "build": "snowpack build",
+    "ssr": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "snowpack": "^3.2.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "puppeteer": "^8.0.0"
   }
 }
