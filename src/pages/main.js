@@ -8,10 +8,13 @@ import { render, query } from '../index';
 function main($) {
   const gists = $('#gists');
   const repos = $('#repos');
+  const post = $('.post');
 
-  // Render
-  render(posts, gists);
-  render(repositories, repos);
+  if (!post) {
+    // Render
+    render(posts, gists);
+    render(repositories, repos);
+  }
 }
 
 main(query);

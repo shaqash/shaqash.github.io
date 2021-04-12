@@ -1,22 +1,8 @@
-import e from 'express';
 import puppeteer from 'puppeteer';
 
 const RENDER_CACHE = new Map();
 
 const isDev = process.env.NODE_ENV !== 'prod';
-
-/**
- * @param {Promise} promise
- * @param {'continue'|'fail'} severity Severity if failed 
- */
-async function catchWithSeverity(promise, severity) {
-  try {
-    await promise;
-  } catch (e) {
-    console.error(e.message);
-    if (severity === 'fail') throw e;
-  }
-}
 
 /**
  * @param {string} url 
@@ -34,7 +20,6 @@ export default async function ssr(url) {
   await page.setRequestInterception(true);
 
   page.on('request', (req) => {
-    // Ignore requests for resources that don't produce DOM
     const allowlist = ['document', 'script', 'xhr', 'fetch'];
     if (!allowlist.includes(req.resourceType())) {
       return req.abort();
@@ -42,8 +27,7 @@ export default async function ssr(url) {
     req.continue();
   });
 
-  await catchWithSeverity(page.goto(url, { waitUntil: 'networkidle0' }), 'fail');
-  await catchWithSeverity(page.waitForSelector('.post', { timeout: 2000 }), 'continue');
+  await page.goto(url, { waitUntil: 'networkidle0' });
 
   const html = await page.content();
   await browser.close();

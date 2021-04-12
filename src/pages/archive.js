@@ -6,8 +6,12 @@ import { posts } from '../components';
 function main($) {
   const gists = $('#gists');
 
-  // Render
-  render(posts, gists);
+  const post = $('.post');
+
+  if (!post) {
+    // Render
+    render(posts, gists);
+  }
 }
 
 /** 

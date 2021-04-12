@@ -1,6 +1,5 @@
 import express from 'express';
-import ssr from '../ssr.js';
-import { PAGES, CSR_FALLBACK_URL } from '../config.js';
+import ssr from '../lib/ssr.js';
 
 function getHandlerForPage(page) {
   return async function ssrHandler(req, res) {
@@ -11,12 +10,13 @@ function getHandlerForPage(page) {
       'Server-Timing',
       `Prerender;dur=${ttRenderMs};desc="Headless render time (ms)"`
     );
-    return res.status(200).send(html); // Serve prerendered page as response.
+
+    return res.status(200).send(html);
   };
 }
 
 /**
- * @param {string[]} pages 
+ * @param {string[]} pages List of html files that are served
  * @returns {express.Router}
  */
 function initRoutingForPages(pages) {
@@ -31,6 +31,4 @@ function initRoutingForPages(pages) {
   return router;
 }
 
-const router = initRoutingForPages(PAGES);
-
-export default router;
+export default initRoutingForPages;

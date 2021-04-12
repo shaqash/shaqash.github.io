@@ -6,7 +6,13 @@ function renderRandom() {
 }
 export async function render(fn, ...nodes) {
   const wrapper = async () => fn();
-  return Promise.all(nodes.map(async (n) => n.innerHTML = await wrapper()));
+  function onCatch() {
+    console.log("Unable to render dynamic content :/");
+    return `
+      <div>Something is missing here.. Please try again later.</div>
+    `;
+  }
+  return Promise.all(nodes.map(async (n) => n.innerHTML = await wrapper().catch(onCatch)));
 }
 function main($, _$) {
   const random2 = $("#random");
@@ -18,7 +24,9 @@ function main($, _$) {
       menu.classList.remove("sticky");
     }
   };
-  render(renderRandom, random2);
+  if (random2.getAttribute("innerHTML") === "") {
+    render(renderRandom, random2);
+  }
 }
 export const query = (selector) => document.querySelector(selector);
 export const queryAll = (selector) => document.querySelectorAll(selector);

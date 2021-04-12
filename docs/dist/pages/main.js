@@ -4,8 +4,11 @@ import {render, query} from "../index.js";
 function main($) {
   const gists = $("#gists");
   const repos = $("#repos");
-  render(posts, gists);
-  render(repositories, repos);
+  const post = $(".post");
+  if (!post) {
+    render(posts, gists);
+    render(repositories, repos);
+  }
 }
 main(query);
 // @license-end

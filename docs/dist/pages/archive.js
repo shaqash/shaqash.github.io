@@ -3,7 +3,10 @@ import {render} from "../index.js";
 import {posts} from "../components/index.js";
 function main($) {
   const gists = $("#gists");
-  render(posts, gists);
+  const post = $(".post");
+  if (!post) {
+    render(posts, gists);
+  }
 }
 const query = (selector) => document.querySelector(selector);
 main(query);
