@@ -14,7 +14,13 @@ export default async function ssr(url) {
 
   const start = Date.now();
 
-  const browser = await puppeteer.launch({ headless: !isDev });
+  const browser = await puppeteer.launch({
+    headless: !isDev,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
+  });
   const page = await browser.newPage();
 
   await page.setRequestInterception(true);
