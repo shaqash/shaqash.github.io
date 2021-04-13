@@ -2,8 +2,6 @@ import puppeteer from 'puppeteer';
 
 const RENDER_CACHE = new Map();
 
-const isDev = process.env.NODE_ENV !== 'prod';
-
 /**
  * @param {string} url 
  */
@@ -15,10 +13,9 @@ export default async function ssr(url) {
   const start = Date.now();
 
   const browser = await puppeteer.launch({
-    headless: !isDev,
+    headless: true,
     args: [
       '--no-sandbox',
-      '--disable-setuid-sandbox',
     ],
   });
   const page = await browser.newPage();
