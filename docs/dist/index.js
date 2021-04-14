@@ -14,9 +14,24 @@ export async function render(fn, ...nodes) {
   }
   return Promise.all(nodes.map(async (n) => n.innerHTML = await wrapper().catch(onCatch)));
 }
+async function loadPageCode(importPromise, ...args) {
+  const {default: pageCode} = await importPromise;
+  pageCode(...args);
+}
 function main($, _$) {
   const random2 = $("#random");
   const menu = $(".menu");
+  const {pathname} = window.location;
+  switch (pathname) {
+    case "/":
+      loadPageCode(import("./pages/main.js"), $);
+      break;
+    case "/archive":
+      loadPageCode(import("./pages/archive.js"), $);
+      break;
+    default:
+      break;
+  }
   window.onscroll = () => {
     if (window.pageYOffset > menu.offsetTop) {
       menu.classList.add("sticky");
@@ -24,7 +39,7 @@ function main($, _$) {
       menu.classList.remove("sticky");
     }
   };
-  if (random2.getAttribute("innerHTML") === "") {
+  if (!random2.getAttribute("innerHTML")) {
     render(renderRandom, random2);
   }
 }

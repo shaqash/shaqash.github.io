@@ -31,12 +31,35 @@ export async function render(fn, ...nodes) {
 }
 
 /**
+ * @param {Promise} importPromise
+ * @param {any[]} args
+ */
+async function loadPageCode(importPromise, ...args) {
+  const { default: pageCode } = await importPromise;
+
+  pageCode(...args);
+}
+
+/**
  * @param {typeof query} $
  * @param {typeof queryAll} _$;
  */
 function main($, _$) {
   const random = $('#random');
   const menu = $('.menu');
+  const { pathname } = window.location;
+
+  // Routing
+  switch (pathname) {
+    case '/':
+      loadPageCode(import('./pages/main.js'), $);
+      break;
+    case '/archive':
+      loadPageCode(import('./pages/archive.js'), $);
+      break;
+    default:
+      break;
+  }
 
   // Sticky menu
   window.onscroll = () => {

@@ -3,9 +3,8 @@ import { render } from '../index';
 import { posts } from '../components';
 
 /** @param {(selector: string) => HTMLElement} $ */
-function main($) {
+export default function archive($) {
   const gists = $('#gists');
-
   const post = $('.post');
 
   if (!post) {
@@ -13,12 +12,5 @@ function main($) {
     render(posts, gists);
   }
 }
-
-/** 
- * @param {string} selector 
- * @returns {HTMLElement}
- */
-const query = (selector) => document.querySelector(selector);
-main(query);
 
 // @license-end

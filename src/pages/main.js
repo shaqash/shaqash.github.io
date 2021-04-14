@@ -5,7 +5,7 @@ import { render, query } from '../index';
 /**
  * @param {typeof query} $ 
  */
-function main($) {
+export default async function main($) {
   const gists = $('#gists');
   const repos = $('#repos');
   const post = $('.post');
@@ -17,5 +17,4 @@ function main($) {
   }
 }
 
-main(query);
 // @license-end

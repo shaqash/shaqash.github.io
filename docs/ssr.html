@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>Shaked Ashkenazi</title>
+</head>
+
+<body>
+  <main>
+    <h1>Redirecting to SSR..</h1>
+    <a href="https://website-ssr.herokuapp.com">Click here if you're not redirected.</a>
+    <script type="application/javascript">
+      window.onload = (function onLoadRedirect() {
+        setTimeout(() => {
+          window.location.replace("https://website-ssr.herokuapp.com")
+        }, 500);
+      })();
+    </script>
+  </main>
+
+
+</body></html>
