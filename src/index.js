@@ -47,7 +47,7 @@ function main($, _$) {
     }
   };
 
-  if (random.getAttribute('innerHTML') === '') {
+  if (!random.getAttribute('innerHTML')) {
     // Was not rendered server side
     render(renderRandom, random);
   }
