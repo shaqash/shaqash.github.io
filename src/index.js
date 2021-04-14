@@ -34,7 +34,7 @@ export async function render(fn, ...nodes) {
  * @param {Promise} importPromise
  * @param {any[]} args
  */
-async function loadPageCode(importPromise, ...args) {
+async function lazyLoad(importPromise, ...args) {
   const { default: pageCode } = await importPromise;
 
   pageCode(...args);
@@ -51,11 +51,14 @@ function main($, _$) {
 
   // Routing
   switch (pathname) {
+    case '/index':
+    case '/index.html':
     case '/':
-      loadPageCode(import('./pages/main.js'), $);
+      lazyLoad(import('./pages/main.js'), $);
       break;
+    case '/archive.html':
     case '/archive':
-      loadPageCode(import('./pages/archive.js'), $);
+      lazyLoad(import('./pages/archive.js'), $);
       break;
     default:
       break;
@@ -87,6 +90,7 @@ export const query = (selector) => document.querySelector(selector);
  * @returns {NodeListOf<Element>}
  */
 export const queryAll = (selector) => document.querySelectorAll(selector);
+
 main(query, queryAll);
 
 // @license-end

@@ -14,7 +14,7 @@ export async function render(fn, ...nodes) {
   }
   return Promise.all(nodes.map(async (n) => n.innerHTML = await wrapper().catch(onCatch)));
 }
-async function loadPageCode(importPromise, ...args) {
+async function lazyLoad(importPromise, ...args) {
   const {default: pageCode} = await importPromise;
   pageCode(...args);
 }
@@ -23,11 +23,14 @@ function main($, _$) {
   const menu = $(".menu");
   const {pathname} = window.location;
   switch (pathname) {
+    case "/index":
+    case "/index.html":
     case "/":
-      loadPageCode(import("./pages/main.js"), $);
+      lazyLoad(import("./pages/main.js"), $);
       break;
+    case "/archive.html":
     case "/archive":
-      loadPageCode(import("./pages/archive.js"), $);
+      lazyLoad(import("./pages/archive.js"), $);
       break;
     default:
       break;
