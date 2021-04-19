@@ -11,12 +11,14 @@
 <body>
   <main>
     <h1>Redirecting to SSR..</h1>
-    <a href="https://website-ssr.herokuapp.com">Click here if you're not redirected.</a>
+    <a href="https://website-ssr.herokuapp.com">Click here if you're not redirected after 5 seconds.</a>
     <script type="application/javascript">
       window.onload = (function onLoadRedirect() {
+        fetch("https://website-ssr.herokuapp.com")
+          .catch(function () { }); // Ping the server
         setTimeout(() => {
           window.location.replace("https://website-ssr.herokuapp.com")
-        }, 500);
+        }, 5000);
       })();
     </script>
   </main>
