@@ -1,7 +1,8 @@
 :root {
-  --primary-background: #1c1c1c;
+  --primary-background: rgba(0, 0, 0, 0.9);
   --primary-color: #fff;
   --page-width: 1000px;
+  --border-color: rgba(255, 255, 255, 0.2);
 }
 *,
 *::before,
@@ -17,6 +18,8 @@ body {
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
+    Calibri,
+    Carlito,
     Roboto,
     Oxygen,
     Ubuntu,
@@ -27,7 +30,7 @@ body {
     "Apple Color Emoji",
     "Segoe UI Emoji",
     "Emoji";
-  font-size: calc(16px + 0.4vmin);
+  font-size: calc(16px + 0.2vmin);
   background-color: var(--primary-background);
   color: var(--primary-color);
   margin: 0;
@@ -42,6 +45,12 @@ p,
 span,
 pre {
   margin: 0;
+}
+section {
+  margin: 2rem 0;
+}
+section h1 {
+  margin: 1rem 0;
 }
 pre {
   white-space: pre-wrap;
@@ -75,17 +84,29 @@ img.medium {
   height: 96px;
   border-radius: 2px;
 }
-.post {
-  margin-bottom: 20px;
+.posts {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
-.post :nth-child(1) {
-  flex: 1;
+.post {
+  width: 420px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
 }
-.intro,
-section {
+.post:nth-child(1) .post-image {
+  float: left;
+  margin-right: 1rem;
+}
+.post:hover {
+  background-color: var(--border-color);
+  cursor: pointer;
+}
+.intro {
+  border: 0;
+  border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box;
   margin-bottom: 2rem;
 }
 a.emoji {
