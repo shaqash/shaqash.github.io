@@ -1,5 +1,5 @@
 .header-container {
-  background-color: var(--primary-background);
+  /* background-color: var(--primary-background); */
   max-width: var(--page-width);
   margin: 20px auto;
   padding: 0 20px;
@@ -26,10 +26,9 @@
 .menu {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  background-color: var(--primary-background);
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: 10px 0;
+  padding: 1rem 0;
   transition: 0.2s;
   display: flex;
 }
@@ -59,4 +58,5 @@ header ~ .menu > .links > * {
   top: 0;
   width: 100%;
   max-width: 100%;
+  background-color: var(--primary-background);
 }
