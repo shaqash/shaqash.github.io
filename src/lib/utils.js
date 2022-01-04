@@ -11,6 +11,12 @@ export async function getJSON(...args) {
   throw new Error('No polyfill for fetch');
 }
 
+
+export function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return params;
+}
+
 /**
  * @template T
  * @param  {(...args: any) => T | Promise<T>} fn

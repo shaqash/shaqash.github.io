@@ -1,6 +1,7 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 import github, { extractPostData } from '../lib/github';
-import { gists, USERNAME } from '../config';
+import withLayout from './layout';
+import { gists } from '../config';
 
 export default async function renderGists(slicer = 0) {
   const keys = Object.keys(gists);
@@ -9,9 +10,9 @@ export default async function renderGists(slicer = 0) {
   const posts = Object.values(gists).map(({ description, title, image }, index) => {
     const { avatar_url, login, created_at, comments } = extractPostData(userGists[index]);
     return `
-      <div class="post" onclick="window.location.replace('https://gist.github.com/${USERNAME}/${keys[index]}')">
+      <div class="post" onclick="window.location.replace('/post?pid=${keys[index]}')">
         <div>
-          <a href="https://gist.github.com/${USERNAME}/${keys[index]}">
+          <a href="post?pid=${keys[index]}">
             <h2>${title}</h2>
           </a>
           <small>

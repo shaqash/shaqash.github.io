@@ -1,5 +1,5 @@
 header {
-  background-color: #c72424;
+  background-color: transparent;
 }
 
 .header-container {
@@ -36,10 +36,6 @@ header {
   top: 176px;
   width: 100vw;
   z-index: -1;
-}
-
-.sep1 {
-  background-image: url(./sep1.svg);
 }
 
 .menu {

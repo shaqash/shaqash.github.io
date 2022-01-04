@@ -5,6 +5,10 @@ export async function getJSON(...args) {
   }
   throw new Error("No polyfill for fetch");
 }
+export function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return params;
+}
 export function withStash(fn, key, persistence = "session") {
   const wrapper = async (...args) => fn(...args);
   const storage = persistence === "session" ? sessionStorage : localStorage;

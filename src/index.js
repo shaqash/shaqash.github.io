@@ -48,32 +48,28 @@ function main($, _$) {
   const random = $('#random');
   const menu = $('.menu');
   const { pathname } = window.location;
+  console.log(pathname);
 
-  // Routing
-  switch (pathname) {
-    case '/index':
-    case '/index.html':
-    case '/':
-      lazyLoad(import('./pages/main.js'), $);
-      break;
-    case '/archive.html':
-    case '/archive':
-      lazyLoad(import('./pages/archive.js'), $);
-      break;
-    default:
-      break;
+  if (/^\/index$/.test(pathname) || pathname === '/') {
+    lazyLoad(import('./pages/main.js'), $);
+  } else if (/^\/archive$/.test(pathname)) {
+    lazyLoad(import('./pages/archive.js'), $);
+  } else if (/^\/p\/*/.test(pathname) || pathname === '/p.html') {
+    lazyLoad(import('./pages/post.js'), $);
   }
 
   // Sticky menu
-  window.onscroll = () => {
-    if (window.pageYOffset > menu.offsetTop) {
-      menu.classList.add("sticky");
-    } else {
-      menu.classList.remove("sticky");
-    }
-  };
+  if (menu) {
+    window.onscroll = () => {
+      if (window.pageYOffset > menu.offsetTop) {
+        menu.classList.add("sticky");
+      } else {
+        menu.classList.remove("sticky");
+      }
+    };
+  }
 
-  if (!random.getAttribute('innerHTML')) {
+  if (random && !random.getAttribute('innerHTML')) {
     // Was not rendered server side
     render(renderRandom, random);
   }

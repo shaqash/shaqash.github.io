@@ -29,7 +29,7 @@ async function getUserRepos(entrypoint, username) {
  * @param {string} gistId
  * @returns {Promise<Gist>}
  */
-async function getGist(entrypoint, gistId) {
+export async function getGist(entrypoint, gistId) {
   const url = `${entrypoint}/gists/${gistId}`;
   const [data, comments] = await Promise.all([
     getJSON(url),
@@ -46,7 +46,7 @@ async function getGist(entrypoint, gistId) {
  * @param {string[]} gistIds
  * @returns {Promise<Gist[]>}
  */
-async function getGists(entrypoint, gistIds) {
+export async function getGists(entrypoint, gistIds) {
   return Promise.all(gistIds.map((id) => getGist(entrypoint, id)));
 }
 
@@ -78,6 +78,7 @@ export function extractPostData(gist) {
  *  getUserData: {(username?: string): Promise<Userdata>};
  *  getUserRepos: {(username?: string): Promise<Repo[]>};
  *  getGists: {(gistIds: string[]): Promise<Gist[]>};
+ *  getGist: {(gistIds: string): Promise<Gist>};
  *  extractPostData: typeof extractPostData,
  * }} Github
  */
@@ -86,6 +87,7 @@ const def = {
   getUserData: (username = USERNAME) => withStash(getUserData, 'SHAQ_USER')(ENTRYPOINT, username),
   getUserRepos: (username = USERNAME) => withStash(getUserRepos, 'SHAQ_REPOS')(ENTRYPOINT, username),
   getGists: (gistIds) => withStash(getGists, 'SHAQ_GIST')(ENTRYPOINT, gistIds),
+  getGist: (gistId) => withStash(getGist, `SHAQ_GIST_${gistId}`)(ENTRYPOINT, gistId),
   extractPostData,
 };
 

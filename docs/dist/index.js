@@ -22,27 +22,24 @@ function main($, _$) {
   const random2 = $("#random");
   const menu = $(".menu");
   const {pathname} = window.location;
-  switch (pathname) {
-    case "/index":
-    case "/index.html":
-    case "/":
-      lazyLoad(import("./pages/main.js"), $);
-      break;
-    case "/archive.html":
-    case "/archive":
-      lazyLoad(import("./pages/archive.js"), $);
-      break;
-    default:
-      break;
+  console.log(pathname);
+  if (/^\/index$/.test(pathname) || pathname === "/") {
+    lazyLoad(import("./pages/main.js"), $);
+  } else if (/^\/archive$/.test(pathname)) {
+    lazyLoad(import("./pages/archive.js"), $);
+  } else if (/^\/p\/*/.test(pathname) || pathname === "/p.html") {
+    lazyLoad(import("./pages/post.js"), $);
   }
-  window.onscroll = () => {
-    if (window.pageYOffset > menu.offsetTop) {
-      menu.classList.add("sticky");
-    } else {
-      menu.classList.remove("sticky");
-    }
-  };
-  if (!random2.getAttribute("innerHTML")) {
+  if (menu) {
+    window.onscroll = () => {
+      if (window.pageYOffset > menu.offsetTop) {
+        menu.classList.add("sticky");
+      } else {
+        menu.classList.remove("sticky");
+      }
+    };
+  }
+  if (random2 && !random2.getAttribute("innerHTML")) {
     render(renderRandom, random2);
   }
 }

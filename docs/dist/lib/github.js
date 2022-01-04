@@ -9,7 +9,7 @@ async function getUserRepos(entrypoint, username) {
   const repos = await getJSON(`${entrypoint}/users/${username}/starred`);
   return repos.filter((repo) => repo.owner.login === username);
 }
-async function getGist(entrypoint, gistId) {
+export async function getGist(entrypoint, gistId) {
   const url = `${entrypoint}/gists/${gistId}`;
   const [data, comments] = await Promise.all([
     getJSON(url),
@@ -20,7 +20,7 @@ async function getGist(entrypoint, gistId) {
     comments
   };
 }
-async function getGists(entrypoint, gistIds) {
+export async function getGists(entrypoint, gistIds) {
   return Promise.all(gistIds.map((id) => getGist(entrypoint, id)));
 }
 export function extractPostData(gist) {
