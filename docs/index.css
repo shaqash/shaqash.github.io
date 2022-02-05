@@ -35,6 +35,10 @@ body {
   font-size: calc(16px + 0.2vmin);
   background-color: var(--primary-background);
   color: var(--primary-color);
+  background-image: url(images/pizzabackground.png);
+  background-blend-mode: overlay;
+  background-size: 600px;
+  background-repeat: revert;
   margin: 0;
   overflow-x: hidden;
 }
@@ -61,6 +65,11 @@ pre {
 a {
   text-decoration: none;
   color: inherit;
+}
+@counter-style hobbies { system: cyclic; symbols: "☕" "🍝" "💻" "🏀" "🏓"; suffix: " "; }
+ul {
+  list-style-type: hobbies;
+  padding: 0 2rem;
 }
 a:hover,
 a:focus {
@@ -90,13 +99,11 @@ img.medium {
 .posts {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
 }
 .post {
-  width: 420px;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
-  padding: 1rem 1.5rem;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem;
 }
 .post:nth-child(1) .post-image {
   float: left;
@@ -144,7 +151,8 @@ a.emoji.active:after {
 a.emoji.active:hover:after,
 a.emoji.active:active:after {
   opacity: 1;
-  content: attr(title);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
 }
 .circle {
   width: 10px;

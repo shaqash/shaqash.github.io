@@ -9,6 +9,9 @@ export function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
   return params;
 }
+export function pipe(...fns) {
+  return (param) => fns.reduce((x, y) => y(x), param);
+}
 export function withStash(fn, key, persistence = "session") {
   const wrapper = async (...args) => fn(...args);
   const storage = persistence === "session" ? sessionStorage : localStorage;

@@ -17,6 +17,10 @@ export function getQueryParams() {
   return params;
 }
 
+export function pipe(...fns) {
+  return (param) => fns.reduce((x, y) => y(x), param);
+}
+
 /**
  * @template T
  * @param  {(...args: any) => T | Promise<T>} fn

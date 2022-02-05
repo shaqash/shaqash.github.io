@@ -1,5 +1,5 @@
 header {
-  background-color: #c72424;
+  background-color: transparent;
 }
 .header-container {
   max-width: var(--page-width);
@@ -15,8 +15,8 @@ header {
   line-height: 1.4;
 }
 .header-container img {
-  width: 128px;
-  height: 128px;
+  width: 64px;
+  height: 64px;
   border-radius: 4px;
 }
 .header-container div:nth-child(2) {
@@ -31,9 +31,6 @@ header {
   top: 176px;
   width: 100vw;
   z-index: -1;
-}
-.sep1 {
-  background-image: url(./sep1.svg);
 }
 .menu {
   -webkit-backface-visibility: hidden;

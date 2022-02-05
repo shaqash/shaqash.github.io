@@ -26,7 +26,7 @@ export default async function renderRepos() {
   });
   return `
     <section>
-      <h1>Top Repositories</h1>
+      <h1># projects</h1>
       <div class="posts">
         ${repos.slice(0, 4).join("")}
       </div>

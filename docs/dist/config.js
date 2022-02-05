@@ -7,7 +7,7 @@ export const gists = {
     filename: "oliterals.md"
   },
   "476db0500a89d5a97acf1332f4d71c44": {
-    title: "Pizza",
+    title: "Pizza at home",
     description: `Pizza recipe and tricks for home oven.`,
     filename: "pizza.md",
     image: "images/pizza.jpg"
@@ -19,4 +19,7 @@ export const random = [
   "This site uses vanilla JS",
   "Pizza time"
 ];
+export const intro = `
+My name is Shaked Ashkenazi, I'm a software developer.
+`;
 // @license-end

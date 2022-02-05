@@ -45,6 +45,7 @@ const def = {
   getUserData: (username = USERNAME) => withStash(getUserData, "SHAQ_USER")(ENTRYPOINT, username),
   getUserRepos: (username = USERNAME) => withStash(getUserRepos, "SHAQ_REPOS")(ENTRYPOINT, username),
   getGists: (gistIds) => withStash(getGists, "SHAQ_GIST")(ENTRYPOINT, gistIds),
+  getGist: (gistId) => withStash(getGist, `SHAQ_GIST_${gistId}`)(ENTRYPOINT, gistId),
   extractPostData
 };
 export default def;

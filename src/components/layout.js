@@ -1,12 +1,13 @@
-export default function withLayout(component) {
+// @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+export default function withLayout(...components) {
+  const menu = getMenu(window.location.pathname);
   return `
   <header>
   <div class="header-container">
     <div><img src="images/mypic_cluster.jpeg" loading="lazy" alt="logo" /></div>
     <div class="header-content">
-      <h2>Shaked Ashkenazi</h2>
-      <span>[shah-kehd] <i>Almond</i></span>
-      <p>Software Developer</p>
+      <h2>Pizza & Code</h2>
+      <span>by Shaked Ashkenazi</span>
     </div>
   </div>
 </header>
@@ -14,7 +15,9 @@ export default function withLayout(component) {
 <span id="top"></span>
 <div class="menu">
   <div class="links">
-    <a href="/">Go Home</a>
+    ${menu.map(([key, val]) => {
+    return `<a href="${key}"><code>${val}</code></a>`;
+  }).join('')}
   </div>
   <div class="info">
     <i>
@@ -23,17 +26,22 @@ export default function withLayout(component) {
   </div>
 </div>
 <main>
-  ${component}
+  ${components.join('')}
 </main>
 <footer>
   <a href="#top">↑ <i>Back to top</i></a>
+  <p>
+    <ul>
+      <li><a href="/ssr">Go SSR!</a></li>
+    </ul>
+  </p>
   <p>
     <small><strong>Licensed under ISC © Shaked Ashkenazi 2021</strong></small>
   </p>
   <p>
     <small>
       <i>
-        Disclaimer: The posts are purely based on my opinion. This site does not collect user data.
+        This site does not collect user data.
       </i>
       😁
     </small>
@@ -41,3 +49,12 @@ export default function withLayout(component) {
 </footer>
   `;
 }
+
+function getMenu(currentPage) {
+  const menuItems = {
+    '/': '/home',
+    '/archive': '/archive',
+  };
+  return Object.entries(menuItems).filter(([key, val]) => key !== currentPage);
+}
+// @license-end

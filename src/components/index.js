@@ -2,5 +2,7 @@
 export { default as posts } from './posts';
 export { default as repositories } from './repositories';
 export { default as post } from './post';
+export { default as mainPage } from './main';
+export { default as header } from './header';
 export { default as withLayout } from './layout';
 // @license-end
