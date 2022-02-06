@@ -1,7 +1,7 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 export const gists = {
   '293bf01a19c36c6e301d2fa070c76e35': {
-    title: 'Object literals',
+    title: 'Best feature of JS?',
     description: `This article is here to show the capabilities of object literals
       and how with one syntax you can do many things in JS.`,
     filename: 'oliterals.md',
@@ -11,6 +11,11 @@ export const gists = {
     description: `Pizza recipe and tricks for home oven.`,
     filename: 'pizza.md',
     image: 'images/pizza.jpg'
+  },
+  'b133cd22d1674954586d4c8a9291efc9': {
+    title: 'Reading Array Reduce',
+    description: 'kek',
+    filename: 'reduce.md',
   }
 };
 
@@ -23,6 +28,6 @@ export const random = [
 ];
 
 export const intro = `
-My name is Shaked Ashkenazi, I'm a software developer.
+My name is Shaked Ashkenazi, I'm a software developer and I built this site to present my projects and things I find interesting.
 `;
 // @license-end

@@ -27,12 +27,12 @@ function bold(content) {
 /** @param {string} content */
 function headers(content) {
   return content
-    .replace(/#+ (.+)/g, '<h2>$1</h2>');
+    .replace(/^#+ (.+)/gm, '<h2 style="margin-top: 0.5rem">$1</h2>');
 }
 
 /** @param {string} content */
 function tags(content) {
-  return content.replace(/`(\w+)`/gm, '<code><i>$1</i></code>');
+  return content.replace(/\s`([\w\s\{\}]+)`/gm, ' <code><i>$1</i></code>');
 }
 
 /** @param {string} content */

@@ -10,10 +10,10 @@ function bold(content) {
   return content.replace(/\*\*(.*)\*\*/g, "<b>$1</b>");
 }
 function headers(content) {
-  return content.replace(/#+ (.+)/g, "<h2>$1</h2>");
+  return content.replace(/^#+ (.+)/gm, '<h2 style="margin-top: 0.5rem">$1</h2>');
 }
 function tags(content) {
-  return content.replace(/`(\w+)`/gm, "<code><i>$1</i></code>");
+  return content.replace(/\s`([\w\s\{\}]+)`/gm, " <code><i>$1</i></code>");
 }
 function code(content) {
   return content.replace(/```js|```ts/gm, '<pre style="background-color: #e3e3e322; padding: 1rem; border-radius: 0.2rem">').replace(/```/gm, "</pre>");
