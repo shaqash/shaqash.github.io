@@ -12,18 +12,22 @@ export default async function renderPost() {
   if (!postMetadata) return window.location.replace('/404.html');
 
   const postData = await github.getGist(postId);
-  const description = postData.data.description;
-  const content = postData.data.files[postMetadata.filename]?.content;
+  console.log({ postData });
+  const { data: { description, files, html_url } } = postData;
+  const content = files[postMetadata.filename]?.content;
   const { comments } = postData;
 
   return withLayout(`
-    ${postMetadata.image ?
-      `<img style="float:right" height="230px" src="${postMetadata.image}"></img>` : ''
+  ${postMetadata.image ?
+      `<img style="float:right" class="large" src="${postMetadata.image}"></img>` : ''
     }
-    <h1>${postMetadata.title}</h1>
-    <p>${description}</p>
-    <span style="white-space:pre-wrap;">${markdown(content)}</span>
-    ${comments.length ? `<strong><i>${comments.length} Comments</i></strong>` : ''}
+  <h1>${postMetadata.title}</h1>
+  <p>${description}</p>
+  <span style="white-space:pre-wrap;">${markdown(content)}</span>
+  ${comments.length ? `<strong>💬 ${comments.length}</strong>` : ''}
+    <div class="fixed right">
+      <a class="emoji-before medium border" title="View source & Comment" href="${html_url}">💬</a>
+    </div>
   `);
 }
 

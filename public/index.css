@@ -4,7 +4,7 @@
   --header-color: #c72424;
   --hover-color: rgba(255, 255, 255, 0.1);
   --page-width: 1000px;
-  --border-color: rgba(255, 255, 255, 0.2);
+  --border-color: rgba(255, 255, 255, 0.3);
 }
 
 *,
@@ -64,7 +64,7 @@ a {
 
 @counter-style hobbies {
   system: cyclic;
-  symbols: "☕" "🍝" "💻" "🏀" "🏓";
+  symbols: "🚀" "🍝" "💻" "🏀" "🏓";
   suffix: " ";
 }
 
@@ -91,6 +91,11 @@ footer {
   max-width: var(--page-width);
 }
 
+.reverse {
+  color: var(--primary-background);
+  background-color: var(--primary-color);
+}
+
 img.small {
   width: 24px;
   height: 24px;
@@ -103,6 +108,44 @@ img.medium {
   border-radius: 2px;
 }
 
+img.large {
+  width: 128px;
+  height: 128px;
+  border-radius: 2px;
+}
+
+img.xlarge {
+  width: 240px;
+  height: 240px;
+  border-radius: 2px;
+}
+
+a.medium,
+p.medium,
+span.medium {
+  font-size: 1.5rem;
+}
+
+a.large,
+p.large,
+span.large {
+  font-size: 2rem;
+}
+
+div.fixed {
+  position: fixed;
+}
+
+div.fixed.left {
+  top: 2rem;
+  left: 2rem;
+}
+
+div.fixed.right {
+  bottom: 2rem;
+  right: 2rem;
+}
+
 .posts {
   display: flex;
   flex-wrap: wrap;
@@ -110,8 +153,11 @@ img.medium {
 
 .post {
   width: 100%;
-  border-bottom: 1px solid var(--border-color);
   padding: 1rem;
+}
+
+.post:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
 }
 
 .post:nth-child(1) .post-image {
@@ -131,23 +177,29 @@ img.medium {
   margin-bottom: 2rem;
 }
 
-a.emoji {
+a.border {
+  border-radius: 2rem;
+  background-color: var(--border-color);
+}
+
+a.emoji,
+a.emoji-before {
   text-decoration: none;
-  padding: 6px;
-  font-size: 1rem;
+  padding: 0.6rem;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  border-radius: 40px;
+  border-radius: 2rem;
 }
 
 a.emoji:hover,
-a.emoji:active {
-  background-color: transparent;
+a.emoji:active,
+a.emoji-before:hover {
   background-color: var(--border-color);
 }
 
 a.emoji:after,
-a.emoji.active:after {
+a.emoji.active:after,
+a.emoji-before:hover:before {
   font-weight: 500;
   font-size: 0.9rem;
   padding: 0 6px;
@@ -159,7 +211,8 @@ a.emoji.active:after {
 
 a.emoji:hover:after,
 a.emoji:active:after,
-a.emoji.active:after {
+a.emoji.active:after,
+a.emoji-before:hover:before {
   opacity: 1;
   content: attr(title);
 }

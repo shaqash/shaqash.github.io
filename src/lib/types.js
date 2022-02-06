@@ -65,6 +65,7 @@
  * owner: { login: "string"; avatar_url: "string" };
  * updated_at: Date | string;
  * created_at: Date | string;
+ * html_url: string;
  * description: string;
  * comments: number;
  * }} GistBody
