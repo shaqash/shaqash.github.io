@@ -14,7 +14,7 @@ export const gists = {
   },
   'b133cd22d1674954586d4c8a9291efc9': {
     title: 'Reading Array Reduce',
-    description: 'kek',
+    description: 'How to read and use Array HoC functions in JS',
     filename: 'reduce.md',
   }
 };
