@@ -9,4 +9,11 @@ module.exports = {
   buildOptions: {
     out: 'docs',
   },
+  routes: [
+    {
+      match: 'routes',
+      src: '.*',
+      dest: '/index.html',
+    },
+  ],
 };

@@ -31,11 +31,12 @@ async function lazyLoad(importPromise, ...args) {
 
 /** @param {string} pathname */
 function router(pathname) {
-  if (/^\/index$/.test(pathname) || pathname === '/') {
+  const withRegExp = (pageName) => new RegExp(`^\/${pageName}(\.html)*$`);
+  if (withRegExp('index').test(pathname) || pathname === '/') {
     return './pages/main.js';
-  } else if (/^\/archive$/.test(pathname)) {
+  } else if (withRegExp('archive').test(pathname)) {
     return './pages/archive.js';
-  } else if (/^\/p\/*/.test(pathname) || pathname === '/p.html') {
+  } else if (withRegExp('post').test(pathname) || pathname === '/post.html') {
     return './pages/post.js';
   }
 }
@@ -58,6 +59,8 @@ export const queryAll = (selector) => document.querySelectorAll(selector);
  * @param {typeof queryAll} $a;
  */
 (async function main($, $a) {
+  const scriptPath = router(window.location.pathname);
+  console.log(scriptPath);
   await lazyLoad(import(router(window.location.pathname)), $);
 
   console.log(3);

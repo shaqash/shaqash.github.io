@@ -4,12 +4,12 @@ import { posts, withLayout } from '../components';
 
 /** @param {(selector: string) => HTMLElement} $ */
 export default function archive($) {
-  const gists = $('#gists');
+  const root = $('#root');
   const post = $('.post');
 
   if (!post) {
     // Render
-    render(async _ => withLayout(await posts()), gists);
+    render(async _ => withLayout(await posts()), root);
   }
 }
 

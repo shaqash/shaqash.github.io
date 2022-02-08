@@ -1,9 +1,4 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-import {random} from "./config.js";
-function renderRandom() {
-  const index = Math.floor(Math.random() * random.length);
-  return random[index];
-}
 export async function render(fn, ...nodes) {
   const wrapper = async () => fn();
   function onCatch() {
@@ -16,34 +11,31 @@ export async function render(fn, ...nodes) {
 }
 async function lazyLoad(importPromise, ...args) {
   const {default: pageCode} = await importPromise;
-  pageCode(...args);
+  return pageCode(...args);
 }
-function main($, _$) {
-  const random2 = $("#random");
-  const menu = $(".menu");
-  const {pathname} = window.location;
-  console.log(pathname);
-  if (/^\/index$/.test(pathname) || pathname === "/") {
-    lazyLoad(import("./pages/main.js"), $);
-  } else if (/^\/archive$/.test(pathname)) {
-    lazyLoad(import("./pages/archive.js"), $);
-  } else if (/^\/p\/*/.test(pathname) || pathname === "/p.html") {
-    lazyLoad(import("./pages/post.js"), $);
-  }
-  if (menu) {
-    window.onscroll = () => {
-      if (window.pageYOffset > menu.offsetTop) {
-        menu.classList.add("sticky");
-      } else {
-        menu.classList.remove("sticky");
-      }
-    };
-  }
-  if (random2 && !random2.getAttribute("innerHTML")) {
-    render(renderRandom, random2);
+function router(pathname) {
+  const withRegExp = (pageName) => new RegExp(`^/${pageName}(.html)*$`);
+  if (withRegExp("index").test(pathname) || pathname === "/") {
+    return "./pages/main.js";
+  } else if (withRegExp("archive").test(pathname)) {
+    return "./pages/archive.js";
+  } else if (withRegExp("post").test(pathname) || pathname === "/post.html") {
+    return "./pages/post.js";
   }
 }
 export const query = (selector) => document.querySelector(selector);
 export const queryAll = (selector) => document.querySelectorAll(selector);
-main(query, queryAll);
+(async function main($, $a) {
+  const scriptPath = router(window.location.pathname);
+  console.log(scriptPath);
+  await lazyLoad(import(router(window.location.pathname)), $);
+  console.log(3);
+  window.addEventListener("load", () => {
+    console.log(1);
+    const header = query(".header-content").querySelector("h2");
+    header.ondblclick = () => {
+      query("body").style.backgroundColor = "var(--matrix-green)";
+    };
+  });
+})(query, queryAll);
 // @license-end

@@ -2,10 +2,10 @@
 import {render} from "../index.js";
 import {posts, withLayout} from "../components/index.js";
 export default function archive($) {
-  const gists = $("#gists");
+  const root = $("#root");
   const post = $(".post");
   if (!post) {
-    render(async (_) => withLayout(await posts()), gists);
+    render(async (_) => withLayout(await posts()), root);
   }
 }
 // @license-end
