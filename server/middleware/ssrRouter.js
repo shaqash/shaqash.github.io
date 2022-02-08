@@ -1,18 +1,30 @@
 import express from 'express';
 import ssr from '../lib/ssr.js';
 
+/** @param {string} page Page name */
 function getHandlerForPage(page) {
-  return async function ssrHandler(req, res) {
-    const url = `${req.protocol}://${req.get('host')}/${page}.html`;
-    const { html, ttRenderMs } = await ssr(url);
+  /** @type {import('express').RequestHandler} */
+  async function ssrHandler(req, res, next) {
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const queryString = `${new URL(`${baseUrl}${req.originalUrl}`).search}`;
+    const url = `${baseUrl}/${page}.html${queryString}`;
 
-    res.set(
-      'Server-Timing',
-      `Prerender;dur=${ttRenderMs};desc="Headless render time (ms)"`
-    );
+    try {
+      const { html, ttRenderMs } = await ssr(url);
 
-    return res.status(200).send(html);
+      res.set(
+        'Server-Timing',
+        `Prerender;dur=${ttRenderMs};desc="Headless render time (ms)"`
+      );
+
+      res.status(200).send(html);
+    } catch (e) {
+      console.error(e.message);
+      next();
+    }
   };
+
+  return ssrHandler;
 }
 
 /**
@@ -21,6 +33,7 @@ function getHandlerForPage(page) {
  */
 function initRoutingForPages(pages) {
   const router = express.Router();
+
 
   router.get('/', getHandlerForPage('index'));
 

@@ -14,9 +14,5 @@
   "license": "ISC",
   "devDependencies": {
     "snowpack": "^3.8.8"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "puppeteer": "^8.0.0"
   }
 }
