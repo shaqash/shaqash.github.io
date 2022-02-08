@@ -12,7 +12,6 @@ export default async function renderPost() {
   if (!postMetadata)
     return window.location.replace("/404.html");
   const postData = await github.getGist(postId);
-  console.log({postData});
   const {data: {description, files, html_url}} = postData;
   const content = (_a = files[postMetadata.filename]) == null ? void 0 : _a.content;
   const {comments} = postData;

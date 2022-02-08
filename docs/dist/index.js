@@ -28,9 +28,7 @@ export const queryAll = (selector) => document.querySelectorAll(selector);
 (async function main($, $a) {
   const scriptPath = router(window.location.pathname);
   await lazyLoad(import(scriptPath), $);
-  console.log(3);
   window.addEventListener("load", () => {
-    console.log(1);
     const header = query(".header-content").querySelector("h2");
     header.ondblclick = () => {
       query("body").style.backgroundColor = "var(--matrix-green)";
