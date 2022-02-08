@@ -5,6 +5,7 @@
   --hover-color: rgba(255, 255, 255, 0.1);
   --page-width: 1000px;
   --border-color: rgba(255, 255, 255, 0.3);
+  --matrix-green: #003b00;
 }
 
 *,
@@ -62,15 +63,15 @@ a {
   color: inherit;
 }
 
+ul {
+  list-style-type: hobbies;
+  padding: 0 2rem;
+}
+
 @counter-style hobbies {
   system: cyclic;
   symbols: "🚀" "🍝" "💻" "🏀" "🏓";
   suffix: " ";
-}
-
-ul {
-  list-style-type: hobbies;
-  padding: 0 2rem;
 }
 
 a:hover,

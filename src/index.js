@@ -1,15 +1,4 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
-import { random } from './config';
-
-/***
- * @returns {string} Random string
- */
-function renderRandom() {
-  const index = Math.floor(Math.random() * random.length);
-
-  return random[index];
-}
-
 /**
  * @param {() => any} fn
  * @param {HTMLElement[]} nodes
@@ -37,41 +26,17 @@ export async function render(fn, ...nodes) {
 async function lazyLoad(importPromise, ...args) {
   const { default: pageCode } = await importPromise;
 
-  pageCode(...args);
+  return pageCode(...args);
 }
 
-/**
- * @param {typeof query} $
- * @param {typeof queryAll} _$;
- */
-function main($, _$) {
-  const random = $('#random');
-  const menu = $('.menu');
-  const { pathname } = window.location;
-  console.log(pathname);
-
+/** @param {string} pathname */
+function router(pathname) {
   if (/^\/index$/.test(pathname) || pathname === '/') {
-    lazyLoad(import('./pages/main.js'), $);
+    return './pages/main.js';
   } else if (/^\/archive$/.test(pathname)) {
-    lazyLoad(import('./pages/archive.js'), $);
+    return './pages/archive.js';
   } else if (/^\/p\/*/.test(pathname) || pathname === '/p.html') {
-    lazyLoad(import('./pages/post.js'), $);
-  }
-
-  // Sticky menu
-  if (menu) {
-    window.onscroll = () => {
-      if (window.pageYOffset > menu.offsetTop) {
-        menu.classList.add("sticky");
-      } else {
-        menu.classList.remove("sticky");
-      }
-    };
-  }
-
-  if (random && !random.getAttribute('innerHTML')) {
-    // Was not rendered server side
-    render(renderRandom, random);
+    return './pages/post.js';
   }
 }
 
@@ -87,6 +52,23 @@ export const query = (selector) => document.querySelector(selector);
  */
 export const queryAll = (selector) => document.querySelectorAll(selector);
 
-main(query, queryAll);
+
+/**
+ * @param {typeof query} $
+ * @param {typeof queryAll} $a;
+ */
+(async function main($, $a) {
+  await lazyLoad(import(router(window.location.pathname)), $);
+
+  console.log(3);
+  window.addEventListener('load', () => {
+    console.log(1);
+    const header = query('.header-content').querySelector('h2');
+    header.ondblclick = () => {
+      query('body').style.backgroundColor = "var(--matrix-green)";
+    };
+  });
+
+})(query, queryAll);
 
 // @license-end
