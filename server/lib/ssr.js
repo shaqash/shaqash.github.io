@@ -14,10 +14,7 @@ export default async function ssr(url) {
 
   const browser = await puppeteer.launch({
     headless: true,
-    args: [
-      '--no-sandbox',
-      "--disable-dev-shm-usage",
-    ],
+    args: ['--no-sandbox'],
   });
   const page = await browser.newPage();
 

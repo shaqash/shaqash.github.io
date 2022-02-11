@@ -8,7 +8,6 @@ export default function archive($) {
   const post = $('.post');
 
   if (!post) {
-    // Render
     render(async _ => withLayout(await posts()), root);
   }
 }
