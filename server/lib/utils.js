@@ -5,8 +5,8 @@ import fs from 'fs';
  */
 export function getPageList(dir) {
   return fs.readdirSync(dir)
-    .reduce((htmlPages, file) => file.endsWith('.js') ?
-      htmlPages.concat(file.replace('.js', '')) :
+    .reduce((htmlPages, file) => file.endsWith('.html') ?
+      htmlPages.concat(file.replace('.html', '')) :
       htmlPages, []
     );
 }
