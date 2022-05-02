@@ -14,6 +14,7 @@ export default async function renderGists(slicer = 0) {
         <div class="post-date"> 
           <h2>${dateCreated.getDate()}</h2>
           <span>${dateCreated.toLocaleDateString(undefined, { month: 'long' })}</span>
+          <small>${dateCreated.toLocaleDateString(undefined, { year: 'numeric' })}</small>
         </div>
         <div>
           <a href="post?pid=${keys[index]}">
