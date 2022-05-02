@@ -7,20 +7,22 @@ export default async function renderGists(slicer = 0) {
   const userGists = await github.getGists(keys);
 
   const posts = Object.values(gists).map(({ description, title, image }, index) => {
-    const { created_at, comments } = extractPostData(userGists[index]);
+    const { created_at, comments, updated_at } = extractPostData(userGists[index]);
+    const dateCreated = new Date(created_at);
     return `
       <div class="post" onclick="window.location.assign('/post?pid=${keys[index]}')">
+        <div class="post-date"> 
+          <h2>${dateCreated.getDate()}</h2>
+          <span>${dateCreated.toLocaleDateString(undefined, { month: 'long' })}</span>
+        </div>
         <div>
           <a href="post?pid=${keys[index]}">
             <h3>${title}</h3>
           </a>
           <small>
-            @ ${new Date(created_at).toDateString()}
+            Last updated @ ${new Date(updated_at).toDateString()}
           </small>
           <div>
-            <div class="post-image">
-              ${image ? `<img class="medium" src="${image}" alt="" />` : ''}
-            </div>
             <p>
             ${description}
             </p>

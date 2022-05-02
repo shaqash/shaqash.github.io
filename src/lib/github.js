@@ -61,6 +61,7 @@ export function extractPostData(gist) {
         login,
       },
       created_at,
+      updated_at,
     },
     comments,
   } = gist;
@@ -69,6 +70,7 @@ export function extractPostData(gist) {
     avatar_url,
     login,
     created_at,
+    updated_at,
     comments,
   };
 }

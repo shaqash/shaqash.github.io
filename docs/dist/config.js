@@ -27,4 +27,5 @@ export const random = [
 export const intro = `
 My name is Shaked Ashkenazi, I'm a software developer and I built this site to present my projects and things I find interesting.
 `;
+export const ssrEndpoint = "https://website-ssr.herokuapp.com";
 // @license-end

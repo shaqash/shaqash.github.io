@@ -137,8 +137,20 @@ div.fixed.right {
   flex-wrap: wrap;
 }
 .post {
+  border-radius: 0.1rem;
+  display: flex;
   width: 100%;
   padding: 1rem;
+  gap: 1rem;
+}
+.post-date {
+  display: flex;
+  text-align: center;
+  width: 80px;
+  min-width: 80px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .post:not(:last-child) {
   border-bottom: 1px solid var(--border-color);

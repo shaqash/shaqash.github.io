@@ -1,10 +1,13 @@
 // @license magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
 import {mainPage} from "../components/index.js";
 import {render, query} from "../index.js";
+import {ssrEndpoint} from "../config.js";
 export default function main($) {
   const root = $("#root");
   const post = $(".post");
   if (!post) {
+    fetch(ssrEndpoint).catch(function() {
+    });
     render(mainPage, root);
   }
 }
