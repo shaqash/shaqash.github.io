@@ -13,7 +13,7 @@ export default async function renderGists(slicer = 0) {
       <div class="post" onclick="window.location.assign('/post?pid=${keys[index]}')">
         <div class="post-date"> 
           <h2>${dateCreated.getDate()}</h2>
-          <span>${dateCreated.toLocaleDateString(undefined, { month: 'long' })}</span>
+          <span>${dateCreated.toLocaleDateString(undefined, { month: 'short' })}</span>
           <small>${dateCreated.toLocaleDateString(undefined, { year: 'numeric' })}</small>
         </div>
         <div>

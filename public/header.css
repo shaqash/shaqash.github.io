@@ -1,12 +1,14 @@
 header {
   background-color: transparent;
+  position: sticky;
+  position: -webkit-sticky;
+  background-color: #001220ee;
+  top: 0;
 }
 
 .header-container {
   max-width: var(--page-width);
-  padding: 20px 20px;
-  padding-top: 20px;
-  min-height: 120px;
+  padding: 20px;
   display: flex;
   align-items: center;
   gap: 40px;
@@ -18,13 +20,13 @@ header {
 }
 
 .header-container img {
-  width: 64px;
-  height: 64px;
+  width: 42px;
+  height: 42px;
   border-radius: 4px;
 }
 
-.header-container div:nth-child(2) {
-  flex: 1;
+.header-container div:nth-child(1) {
+  flex-grow: 1;
 }
 
 .separator {

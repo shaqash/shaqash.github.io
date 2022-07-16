@@ -19,7 +19,7 @@ export default async function renderRepos() {
           </a>
           <small>
           Last updated @ ${new Date(repo.updated_at).toDateString()}
-          ${repo.homepage ? `<a href="${repo.homepage}" class="emoji active" title="Demo">🌍</a>` : ''}
+          ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="emoji active" title="Demo">🌍</a>` : ''}
           </small>
           <p>
             ${repo.description}

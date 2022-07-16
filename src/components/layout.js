@@ -4,10 +4,15 @@ export default function withLayout(...components) {
   return `
   <header>
   <div class="header-container">
-    <div><img src="images/mypic_cluster.jpeg" loading="lazy" alt="logo" /></div>
+  
     <div class="header-content">
       <h2>Pizza & Code</h2>
-      <span>by Shaked Ashkenazi</span>
+    </div>
+    <div>
+      <div class="links">
+        <a href="https://github.com/shaqash" class="emoji2">🐱</a>
+        <a href="mailto:ash.shaked@gmail.com" class="emoji2">📬</a>
+      </div>
     </div>
   </div>
 </header>

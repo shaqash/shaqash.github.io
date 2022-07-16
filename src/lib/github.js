@@ -12,6 +12,12 @@ async function getUserData(entrypoint, username) {
   return getJSON(`${entrypoint}/users/${username}`);
 }
 
+/** @param {string} username */
+async function getReadme(username) {
+  return fetch(`https://raw.githubusercontent.com/${username}/${username}/master/README.md`)
+    .then(d => d.text());
+}
+
 /**
  * @param {string} entrypoint
  * @param {string} username
@@ -79,6 +85,7 @@ export function extractPostData(gist) {
  * @typedef {{
  *  getUserData: {(username?: string): Promise<Userdata>};
  *  getUserRepos: {(username?: string): Promise<Repo[]>};
+ *  getReadme: {(username?: string) => Promise<string>};
  *  getGists: {(gistIds: string[]): Promise<Gist[]>};
  *  getGist: {(gistIds: string): Promise<Gist>};
  *  extractPostData: typeof extractPostData,
@@ -88,6 +95,7 @@ export function extractPostData(gist) {
 const def = {
   getUserData: (username = USERNAME) => withStash(getUserData, 'SHAQ_USER')(ENTRYPOINT, username),
   getUserRepos: (username = USERNAME) => withStash(getUserRepos, 'SHAQ_REPOS')(ENTRYPOINT, username),
+  getReadme: (username = USERNAME) => getReadme(username),
   getGists: (gistIds) => withStash(getGists, 'SHAQ_GIST')(ENTRYPOINT, gistIds),
   getGist: (gistId) => withStash(getGist, `SHAQ_GIST_${gistId}`)(ENTRYPOINT, gistId),
   extractPostData,
