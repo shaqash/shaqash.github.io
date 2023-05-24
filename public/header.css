@@ -2,7 +2,7 @@ header {
   background-color: transparent;
   position: sticky;
   position: -webkit-sticky;
-  background-color: #001220ee;
+  background-color: var(--header-color);
   top: 0;
 }
 
