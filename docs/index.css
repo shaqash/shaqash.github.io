@@ -1,7 +1,7 @@
 :root {
   --primary-background: #001220;
   --primary-color: #fff;
-  --header-color: #c72424;
+  --header-color: #001220ee;
   --hover-color: rgba(255, 255, 255, 0.1);
   --page-width: 1200px;
   --border-color: rgba(255, 255, 255, 0.3);
@@ -38,6 +38,8 @@ body {
   color: var(--primary-color);
   background-image: url(images/pizzabackground.png);
   background-blend-mode: overlay;
+  background-blend-mode: color-dodge;
+  font-weight: 600;
   background-size: 600px;
   background-repeat: revert;
   margin: 0;
